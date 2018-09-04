@@ -1,0 +1,15 @@
+index=qualys_cloud sourcetype=qualys:hostDetection HOSTVULN
+| fillnull HOST_ID, QID, SSL, PROTOCOL value="-" 
+| dedup 1 HOST_ID, QID, SSL, PROTOCOL keepempty=true sortby -_time 
+| search STATUS!="FIXED" 
+| lookup qualys_kb_lookup QID OUTPUT TITLE SEVERITY CATEGORY PATCHABLE
+| eval FIRST_FOUND_TIMESTAMP=strptime(FIRST_FOUND_DATETIME, "%Y-%m-%dT%H:%M:%SZ") 
+| eval LAST_FOUND_TIMESTAMP=strptime(LAST_FOUND_DATETIME, "%Y-%m-%dT%H:%M:%SZ") 
+| eval AGE_DAY = round((LAST_FOUND_TIMESTAMP - FIRST_FOUND_TIMESTAMP)/3600/24, 0) 
+| lookup ea_qualyshandler ip_range AS IP OUTPUT gp AS handler 
+| eval handler=mvjoin(handler, ", ")
+| fillnull handler value="Orphan"
+| eval PATCH_INACTIVE_AGE_DAY=round((now()-LAST_FOUND_TIMESTAMP)/3600/24,0) 
+| eval PATCH_INACTIVE=if((PATCH_INACTIVE_AGE_DAY>7 AND handler!="Purchasing_Xerox") OR (PATCH_INACTIVE_AGE_DAY>31 AND handler="Purchasing_Xerox"), "Y", "N") 
+| fields IP, DNS, NETBIOS, TYPE, QID, SEVERITY, TITLE, CATEGORY, PATCHABLE, FIRST_FOUND_TIMESTAMP, LAST_FOUND_TIMESTAMP, AGE_DAY, OS, handler, PATCH_INACTIVE, PORT, VENDOR_REFERENCE, LAST_FOUND_DATETIME, FIRST_FOUND_DATETIME, STATUS, PATCH_INACTIVE_AGE_DAY
+| outputlookup ea_qualys_snapshot
