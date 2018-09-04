@@ -13,6 +13,6 @@ index=qualys_cloud sourcetype=qualys:hostDetection HOSTVULN
 | eval handler=mvjoin(handler, ", ")
 | fillnull handler value="Orphan"
 | eval PATCH_INACTIVE_AGE_DAY=round((now()-LAST_FOUND_TIMESTAMP)/3600/24,0) 
-| eval PATCH_INACTIVE=if((PATCH_INACTIVE_AGE_DAY>7 AND handler!="Purchasing_Xerox") OR (PATCH_INACTIVE_AGE_DAY>31 AND handler="Purchasing_Xerox"), "Y", "N") 
+| eval PATCH_INACTIVE=if(PATCH_INACTIVE_AGE_DAY>7, "Y", "N") 
 | fields IP, DNS, NETBIOS, TYPE, QID, SEVERITY, TITLE, CATEGORY, PATCHABLE, FIRST_FOUND_TIMESTAMP, LAST_FOUND_TIMESTAMP, AGE_DAY, OS, handler, PATCH_INACTIVE, PORT, VENDOR_REFERENCE, LAST_FOUND_DATETIME, FIRST_FOUND_DATETIME, STATUS, PATCH_INACTIVE_AGE_DAY
 | outputlookup ea_qualys_snapshot
