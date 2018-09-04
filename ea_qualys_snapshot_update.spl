@@ -1,3 +1,5 @@
+# Timerange earliest=0 latest=now
+
 index=qualys_cloud sourcetype=qualys:hostDetection HOSTVULN
 | fillnull HOST_ID, QID, SSL, PROTOCOL value="-" 
 | dedup 1 HOST_ID, QID, SSL, PROTOCOL keepempty=true sortby -_time 
