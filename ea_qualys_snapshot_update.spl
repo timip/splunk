@@ -1,7 +1,8 @@
 # Timerange earliest=0 latest=now
 # ea_qualyshandler is a lookup table contains ip and handler (Owner) mapping
+# index=qualys_cloud: Please replace 
 
-index=qualys_cloud sourcetype=qualys:hostDetection HOSTVULN
+index=<index that store Qualys data> sourcetype=qualys:hostDetection HOSTVULN
 | fillnull HOST_ID, QID, SSL, PROTOCOL value="-" 
 | dedup 1 HOST_ID, QID, SSL, PROTOCOL keepempty=true sortby -_time 
 | search STATUS!="FIXED" 
