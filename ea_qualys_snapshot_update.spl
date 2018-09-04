@@ -1,4 +1,5 @@
 # Timerange earliest=0 latest=now
+# ea_qualyshandler is a lookup table contains ip and handler (Owner) mapping
 
 index=qualys_cloud sourcetype=qualys:hostDetection HOSTVULN
 | fillnull HOST_ID, QID, SSL, PROTOCOL value="-" 
