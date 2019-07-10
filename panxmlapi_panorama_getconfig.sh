@@ -16,7 +16,7 @@ fwname="<Fill in PAN Firewall Display Name you want in Splunk>"
 
 echo "`date +'%Y%m%d %H:%M:%S'`: Getting rules from firewall $fwname"
 $path_panxapi -h $panaddr -K $pankey -jr -s "/config/devices/entry[@name=\"localhost.localdomain\"]/device-group/entry[@name=\"$fwname_api\"]/pre-rulebase/security/rules" > $path_out/tmp_rules.json
-cat $path_out/tmp_rules.json | $path_jq '.rules.entry[] | {panname:"'$fwname'", name:.name, desc:.description, ser:.service.member, app:.application.member, src:.source.member, dest:.destination.member, from:.from.member, to:.to.member, disable:.disabled, src_user:."source-user".member, action:.action, log_end:."log-end", tag:.tag.member, log_setting:."log-setting", neg_src:."negate-source", neg_dest:."negate-destination", profile_setting:."profile-setting".group.member}' > "$path_out/input_rules.$fwname.`date +"%Y%m%d"`.json"
+cat $path_out/tmp_rules.json | $path_jq '.rules.entry[] | {panname:"'$fwname'", name:.name, desc:.description, ser:.service.member, app:.application.member, src:.source.member, dest:.destination.member, from:.from.member, to:.to.member, disable:.disabled, src_user:."source-user".member, action:.action, log_start:."log-start", log_end:."log-end", tag:.tag.member, log_setting:."log-setting", neg_src:."negate-source", neg_dest:."negate-destination", profile_setting:."profile-setting".group.member}' > "$path_out/input_rules.$fwname.`date +"%Y%m%d"`.json"
 
 echo "`date +'%Y%m%d %H:%M:%S'`: Getting addresses from firewall $fwname"
 $path_panxapi -h $panaddr -K $pankey -jr -s "/config/devices/entry[@name=\"localhost.localdomain\"]/device-group/entry[@name=\"$fwname_api\"]/address" > $path_out/tmp_address.json
