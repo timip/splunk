@@ -79,6 +79,7 @@
 	      <SourceImage condition="is">C:\Program Files (x86)\Google\Chrome\Application\chrome.exe</SourceImage>
 	      <SourceImage condition="is">C:\Program Files\Windows Defender\MsMpEng.exe</SourceImage>
 	      <SourceImage condition="is">C:\Program Files\Microsoft VS Code\Code.exe</SourceImage>
+	      <SourceImage condition="is">C:\Program Files\SplunkUniversalForwarder\bin\splunk-netmon.exe</SourceImage>
 	      <TargetImage condition="is">C:\Program Files\VMware\VMware Tools\TPAutoConnSvc.exe</TargetImage>
 	      <TargetImage condition="is">C:\Program Files\VMware\VMware Tools\TPAutoConnect.exe</TargetImage>
 	      <TargetImage condition="is">C:\Windows\system32\mmc.exe</TargetImage>
