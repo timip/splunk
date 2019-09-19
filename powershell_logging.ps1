@@ -89,7 +89,7 @@ IF (!(Test-Path $registryPath)) {
 
 $registryPath = "HKLM:\SOFTWARE\Wow6432Node\Policies\Microsoft\Windows\PowerShell\Transcription"
 $Name = "OutputDirectory"
-$value = "C:\tech\pstrans\"
+$value = "C:\pstrans\"
 
 IF (!(Test-Path $registryPath)) {
     New-Item -Path $registryPath -Force | Out-Null
@@ -100,7 +100,7 @@ IF (!(Test-Path $registryPath)) {
 
 ########## AS_W_06 ##########
 
-$value = "C:\tech"
+$value = "C:\pstrans"
 
 New-Item -ItemType directory -Force -Path $value | Out-Null
 $acl = Get-ACL -Path $value
