@@ -1,8 +1,10 @@
 ########## AS_W_01 ##########
+# Audit Success Process Creation event
 
 auditpol /set /category:"detailed tracking" /subcategory:"Process Creation" /success:enable | Out-Null
 
 ########## AS_W_02 ##########
+# Include command line in process creation events
 
 $registryPath = "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System\Audit"
 $Name = "ProcessCreationIncludeCmdLine_Enabled"
@@ -16,6 +18,7 @@ IF (!(Test-Path $registryPath)) {
 }
 
 ########## AS_W_03 ##########
+# Turn on Module Logging
 
 $registryPath = "HKLM:\SOFTWARE\Wow6432Node\Policies\Microsoft\Windows\PowerShell\ModuleLogging"
 $Name = "EnableModuleLogging"
@@ -40,6 +43,7 @@ IF (!(Test-Path $registryPath)) {
 }
 
 ########## AS_W_04 ##########
+# Configure script block logging for PowerShell
 
 $registryPath = "HKLM:\SOFTWARE\Wow6432Node\Policies\Microsoft\Windows\PowerShell\ScriptBlockLogging"
 $Name = "EnableScriptBlockLogging"
@@ -64,6 +68,7 @@ IF (!(Test-Path $registryPath)) {
 }
 
 ########## AS_W_05 ##########
+# Turn on PowerShell Transcript
 
 $registryPath = "HKLM:\SOFTWARE\Wow6432Node\Policies\Microsoft\Windows\PowerShell\Transcription"
 $Name = "EnableInvocationHeader"
@@ -99,6 +104,7 @@ IF (!(Test-Path $registryPath)) {
 }
 
 ########## AS_W_06 ##########
+# Create and Secure Folder C:\pstrans for PowerShell Transcript
 
 $value = "C:\pstrans"
 
