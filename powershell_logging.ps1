@@ -105,8 +105,8 @@ $value = "C:\pstrans"
 New-Item -ItemType directory -Force -Path $value | Out-Null
 $acl = Get-ACL -Path $value
 $acl.SetAccessRuleProtection($true,$false)
-$AccessRule = New-Object System.Security.AccessControl.FileSystemAccessRule("BUILTIN\Administrators","FullControl","Allow")
+$AccessRule = New-Object System.Security.AccessControl.FileSystemAccessRule("BUILTIN\Administrators","FullControl","ContainerInherit,ObjectInherit","None","Allow")
 $acl.SetAccessRule($AccessRule)
-$AccessRule = New-Object System.Security.AccessControl.FileSystemAccessRule("NT AUTHORITY\SYSTEM","FullControl","Allow")
+$AccessRule = New-Object System.Security.AccessControl.FileSystemAccessRule("NT AUTHORITY\SYSTEM","FullControl","ContainerInherit,ObjectInherit","None","Allow")
 $acl.SetAccessRule($AccessRule)
 $acl | Set-Acl $value
