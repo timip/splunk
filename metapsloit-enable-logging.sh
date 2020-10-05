@@ -2,8 +2,6 @@
 
 for home_dir in /root /home/*; do
 
-    echo $home_dir
-
     home_dir_user=$(stat -c '%U' $home_dir)
     home_dir_group=$(stat -c '%G' $home_dir)
 
@@ -17,7 +15,7 @@ for home_dir in /root /home/*; do
 ConsoleLogging=true
 SessionLogging=true
 EOF
-    chown $home_dir_user:$home_dir_group /home/$home_dir_user/.msf4/config
+    chown $home_dir_user:$home_dir_group $home_dir/.msf4/config
 
     echo "(+) Enabled Metasploit logging for $home_dir_user"
 
