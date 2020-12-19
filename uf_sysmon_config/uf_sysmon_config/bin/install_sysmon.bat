@@ -19,7 +19,7 @@ IF %bit% == "x86" (
 IF "%ERRORLEVEL%" NEQ "0" (
     goto start_sysmon
 )
-goto update_config
+goto check_sysmon_version
 
 :start_sysmon
 echo Starting sysmon...
@@ -31,6 +31,17 @@ IF %bit% == "x86" (
 IF "%ERRORLEVEL%" NEQ "0" (
     goto install_sysmon
 )
+
+:check_sysmon_version
+IF %bit% == "x86" (
+    Sysmon | Find "12.03"
+) else (
+    Sysmon64 | Find "12.03"
+)
+IF "%ERRORLEVEL%" NEQ "0" (
+    goto install_sysmon
+)
+goto update_config
 
 :update_config
 echo Updating Sysmon Config...
