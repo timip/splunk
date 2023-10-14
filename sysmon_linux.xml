@@ -21,7 +21,28 @@ NG FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS 
   <EventFiltering>
     <!-- Event ID 1 == ProcessCreate. Log all newly created processes -->
     <RuleGroup name="" groupRelation="or">
-      <ProcessCreate onmatch="exclude"/>
+      <ProcessCreate onmatch="exclude">
+        <CommandLine condition="is">/bin/sh /usr/share/kali-themes/xfce4-panel-genmon-vpnip.sh</CommandLine>
+        <CommandLine condition="is">cut -d : -f1</CommandLine>
+        <CommandLine condition="is">grep -o -P (?&lt;=inet )[0-9]{1,3}(\.[0-9]{1,3}){3}</CommandLine>
+        <CommandLine condition="is">head -n 1</CommandLine>
+        <CommandLine condition="is">ip a s </CommandLine>
+        <CommandLine condition="is">ip tuntap show</CommandLine>
+        <CommandLine condition="is">tr [:upper:] [:lower:]</CommandLine>
+        <CommandLine condition="is">sed s/:/ /g</CommandLine>
+        <CommandLine condition="is">tr [:lower:] [:upper:]</CommandLine>
+        <CommandLine condition="is">getopt --name lsb_release -o hvidrcas -l help,version,id,description,release,codename,all,short --</CommandLine>
+        <CommandLine condition="is">cut -c2-</CommandLine>
+        <CommandLine condition="is">cut -c1</CommandLine>
+        <CommandLine condition="is">uname -r</CommandLine>
+        <CommandLine condition="is">uname -s</CommandLine>
+        <CommandLine condition="is">grep -i en_US.utf</CommandLine>
+        <CommandLine condition="is">awk NR==1 {printf $1}</CommandLine>
+        <CommandLine condition="is">awk -F[&quot;.] /VERSION_ID=/ {print $2}  /etc/os-release</CommandLine>
+        <CommandLine condition="is">locale -a</CommandLine>
+        <CommandLine condition="is">/bin/sh /usr/bin/lsb_release</CommandLine>
+        <CommandLine condition="begin with">/bin/sh -c /opt/splunkforwarder/</CommandLine>
+      </ProcessCreate>
     </RuleGroup>
     <!-- Event ID 3 == NetworkConnect Detected. Log all network connections -->
     <RuleGroup name="" groupRelation="or">
